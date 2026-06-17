@@ -102,6 +102,52 @@ path from `pwd`):
 }
 ```
 
+## Connect a project
+
+Once the server is registered and your client restarted, point it at the Framer
+project you want to work on. You only do this once per machine — auth and
+sessions are stored globally in `~/.framer`, never in this repo.
+
+1. Copy your project URL or ID from Framer — the editor URL works (it looks like
+   `https://framer.com/projects/My-Site--abc123…`), or just the ID at the end.
+2. Tell your agent to use it, e.g.:
+
+   > Open my Framer project https://framer.com/projects/My-Site--abc123 and work on it.
+
+   The agent authorizes the project (the first time may open a browser or ask for
+   an API key) and opens a session. From then on you just describe what you want.
+
+Prefer to do it by hand? The equivalent CLI is:
+
+```bash
+npx @framer/agent@latest project auth "<project-url-or-id>"   # one-time authorization
+npx @framer/agent@latest session new  "<project-url-or-id>"   # prints a session id
+```
+
+Inside the MCP, the same steps are the `framer_auth_project` and
+`framer_open_session` tools. Session-scoped tools take the returned session id.
+
+## Example prompts
+
+With a project connected, you drive everything in natural language. A few things
+you can ask for:
+
+- "Add a full-width section 600px tall with a `#0F172A` background."
+- "Create a 3-column feature grid; each card has an icon, a 20px bold title, and
+  a 16px body."
+- "Set the hero heading to 64px, weight 600, centered, with 1.1 line height."
+- "Add an image from `<url>`, make it fill the container, and round the corners 12px."
+- "Create a CMS collection `Posts` with title, slug, date, and rich-text body fields,
+  then add three sample entries."
+- "Change the primary color style to `#2563EB` everywhere it's used."
+- "Add a new page at `/pricing` and link it from the nav."
+- "Publish the site."
+
+Under the hood these map onto the canvas tools (`framer_apply_changes`), CMS
+tools, style tools, and publishing tools — but you rarely need to name them; the
+agent picks the right one. It reads project context first and reviews canvas
+changes after applying them.
+
 ## Updating
 
 When new changes are pushed to the repo, pull them in with the
