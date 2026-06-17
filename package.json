@@ -1,0 +1,35 @@
+{
+  "name": "framer-mcp-threaded",
+  "version": "0.1.0",
+  "description": "MCP server wrapping @framer/agent for agent-friendly Framer project operations",
+  "author": "Yuvraj Sood (Studio Threaded) <yuvraj@studiothreaded.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/ysood/framer-mcp-threaded",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ysood/framer-mcp-threaded.git"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "framer-mcp-threaded": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "register:claude": "node scripts/register-claude-config.mjs",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@framer/agent": "0.0.33",
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "typescript": "^5.5.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

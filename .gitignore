@@ -1,0 +1,8 @@
+node_modules/
+dist/
+npm-debug.log*
+.DS_Store
+
+# Per-project skill files are user/project-specific reference material, not
+# part of the generic server. Generated locally by `@framer/agent setup`.
+docs/reference/framer-project-*-skill.md
