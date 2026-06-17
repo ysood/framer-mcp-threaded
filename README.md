@@ -74,11 +74,14 @@ Then restart the MCP client or start a new Codex session.
 > which is why `npm install && npm run build` is required after cloning or
 > updating.
 
-You also need the Framer agent skills installed on the machine once:
+You also need the Framer agent skills installed on the machine once. This runs
+the pinned agent already in `node_modules` (no network fetch, no `@latest`):
 
 ```bash
-npx @framer/agent@latest setup
+npm run setup
 ```
+
+This is recommended but not required for the server to register and run.
 
 ### Letting a coding agent install it
 

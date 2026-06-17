@@ -17,6 +17,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
+    "setup": "agent setup",
     "register:claude": "node scripts/register-claude-config.mjs",
     "start": "node dist/index.js"
   },

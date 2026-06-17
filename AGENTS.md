@@ -15,8 +15,12 @@ npm install
 npm run build
 
 # 3. Install the Framer agent skills onto this machine (one-time per machine).
-npx @framer/agent@latest setup
+#    Runs the pinned agent already in node_modules — no network fetch, no @latest.
+npm run setup
 ```
+
+Step 3 is recommended but not required for the server to register and run. If a
+permission classifier blocks it, the user can run `npm run setup` themselves.
 
 Then register the built server with the user's MCP client.
 
