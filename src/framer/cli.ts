@@ -210,21 +210,39 @@ function parseJsonFromStdout(
   return { ok: false };
 }
 
+/**
+ * Success payload returned through MCP. Deliberately lean: the caller already
+ * knows the command it issued (for inline exec the argv would echo the whole
+ * script back), and when stdout parses as JSON the raw text is a duplicate —
+ * so each piece of information is returned exactly once. Failures go through
+ * errorPayload, which stays fully verbose.
+ */
 export function commandPayload(result: FramerCommandResult): Record<string, unknown> {
-  return {
-    command: result.command,
-    exitCode: result.exitCode,
-    stdout: result.stdout,
-    stderr: result.stderr,
-    ...(result.json === undefined ? {} : { json: result.json }),
-  };
+  const payload: Record<string, unknown> = { exitCode: result.exitCode };
+
+  if (result.json !== undefined) {
+    payload.json = result.json;
+  } else if (result.stdout.trim()) {
+    payload.stdout = result.stdout;
+  }
+
+  if (result.stderr.trim()) {
+    payload.stderr = result.stderr;
+  }
+
+  return payload;
 }
 
 export function errorPayload(error: unknown): Record<string, unknown> {
   if (error instanceof FramerCliError) {
+    const { result } = error;
     return {
       error: error.message,
-      ...commandPayload(error.result),
+      command: result.command,
+      exitCode: result.exitCode,
+      stdout: result.stdout,
+      stderr: result.stderr,
+      ...(result.json === undefined ? {} : { json: result.json }),
     };
   }
 
